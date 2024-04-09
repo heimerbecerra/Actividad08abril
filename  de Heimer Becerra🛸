@@ -1,0 +1,77 @@
+'''
+UNA TRANSPORTADORA REQUIERE EL DESARROLLO DE UNA APLICACION QUE PERMITA LLEVAR UN REGISTRO DE LOS DESPACHOS DE SUS VEHICULOS TENIENDO EN CUENTA LOS SIGUIENTE:
+PLACA DEL VEHICULO
+DESCRIPCION DEL VEHICULO
+NOMBRE DEL CONDUCTOR
+CONTACTO DEL CONDUCTOR
+RUTA 
+DESCRIPCION DE LA CARGA 
+
+EL NUMERO DE DESPACHO SE GENERA DE FORMA AUTOMATICA (UNA VARIABLE QUE SE AUTOINCREMENTE)
+DICHA INFORMACION DEBE QUEDAR REGISTRADA EN UN DICCIONARIO.
+EL SISTEMA DEBE REALIZAR: REGISTRO DE SALIDAS Y MIOSTRAR SALIDAS 
+
+
+
+
+
+'''
+class Despacho:
+    despacho_contador = 1
+
+    def __init__(self, placa_vehiculo, descripcion_vehiculo, nombre_conductor, contacto_conductor, ruta, descripcion_carga):
+        self.despacho_numero = Despacho.despacho_contador
+        Despacho.despacho_contador += 1
+        self.placa_vehiculo = placa_vehiculo
+        self.descripcion_vehiculo = descripcion_vehiculo
+        self.nombre_conductor = nombre_conductor
+        self.contacto_conductor = contacto_conductor
+        self.ruta = ruta
+        self.descripcion_carga = descripcion_carga
+
+    def __str__(self):
+        return f'Despacho #{self.despacho_numero}\n' \
+               f'Placa del vehículo: {self.placa_vehiculo}\n' \
+               f'Descripción del vehículo: {self.descripcion_vehiculo}\n' \
+               f'Nombre del conductor: {self.nombre_conductor}\n' \
+               f'Contacto del conductor: {self.contacto_conductor}\n' \
+               f'Ruta: {self.ruta}\n' \
+               f'Descripción de la carga: {self.descripcion_carga}\n'
+
+def registrar_despacho():
+    placa_vehiculo = input('Ingrese el número de placa del vehículo: ')
+    descripcion_vehiculo = input('Ingrese la descripción del vehículo: ')
+    nombre_conductor = input('Ingrese el nombre del conductor: ')
+    contacto_conductor = input('Ingrese el contacto del conductor: ')
+    ruta = input('Ingrese la ruta: ')
+    descripcion_carga = input('Ingrese la descripción de la carga: ')
+    despacho = Despacho(placa_vehiculo, descripcion_vehiculo, nombre_conductor, contacto_conductor, ruta, descripcion_carga)
+    print(despacho)
+    return despacho
+
+def mostrar_despachos(despachos):
+    if not despachos:
+        print('No hay despachos registrados.')
+    else:
+        for despacho in despachos.values():
+            print(despacho)
+
+despachos = {}
+despachos_contador = 0
+
+while True:
+    print('\nOpciones:')
+    print('1. Registrar un nuevo despacho')
+    print('2. Mostrar despachos')
+    print('3. Salir')
+    opcion = int(input('Ingrese su opción: '))
+    if opcion == 1:
+        despacho = registrar_despacho()
+        despachos[despacho.despacho_numero] = despacho
+        despachos_contador += 1
+    elif opcion == 2:
+        mostrar_despachos(despachos)
+    elif opcion == 3:
+        break
+    else:
+        print('Opción inválida, por favor intente de nuevo.')
